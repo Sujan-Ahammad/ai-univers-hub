@@ -1,0 +1,24 @@
+#left-side{
+/* 
+    width: 200px; */
+    padding: 40px;
+    /* background-color: black; */
+    box-sizing: border-box;
+width: 487px;
+height: 511px;
+border: 1px solid #EB5757;
+border-radius: 16px;
+}
+#right-side{
+
+    width: 487px;
+height: 511px;
+}
+
+
+#pricing-box{
+
+    width: 120px;
+    height: 90px;
+    padding: 10px;
+}
