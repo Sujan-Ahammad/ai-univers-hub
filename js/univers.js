@@ -1,12 +1,12 @@
 const loadData = () => {
     const URL = `https://openapi.programming-hero.com/api/ai/tools`
     fetch(URL)
-    .then(res=>res.json())
-    .then(data=>displayAllData(data.data))
+        .then(res => res.json())
+        .then(data => displayAllData(data.data))
 
 
 }
-loadData()
+// loadData()
 
 const displayAllData = (datas) => {
     // console.log(data.tools);
@@ -14,8 +14,8 @@ const displayAllData = (datas) => {
     const mainCard = document.getElementById('main-card');
 
     datas.tools.forEach(singleData => {
-        console.log(singleData);
-        const cardDiv=document.createElement('div')
+        // console.log(singleData);
+        const cardDiv = document.createElement('div')
         cardDiv.classList.add('card')
         cardDiv.innerHTML = `
 
@@ -32,7 +32,7 @@ const displayAllData = (datas) => {
               2. ${singleData.features[1]}
               </p>
               <p class="card-text fw-light">
-              3. ${singleData.features[2]}
+              3. ${singleData.features[2] ? singleData.features[2] : 'Not available'}
               </p>
               </div>
             </div>
@@ -44,7 +44,9 @@ const displayAllData = (datas) => {
             <div><p><i class="fa-solid fa-calendar-days"></i> ${singleData.published_in}</p></div>
             
             <div>
-            <i class="fa-solid fa-arrow-right"></i>
+            <i class="fa-solid fa-arrow-right"
+             onclick="cardModal('${singleData.id}')"
+             data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#extraLargeModal"></i>
             </div>
             </div>
               
@@ -54,11 +56,70 @@ const displayAllData = (datas) => {
         
         `;
         mainCard.appendChild(cardDiv)
-        
+
 
 
     })
 
+
+
+}
+
+// Card Modal Section
+
+const cardModal = (id) => {
+
+    const URL = `https://openapi.programming-hero.com/api/ai/tool/${id}`
+    fetch(URL)
+        .then(res => res.json())
+        .then(data => displayCardModal(data))
+
+
+
+}
+
+const displayCardModal = (data) => {
+
+    console.log(data.data);
+    const cardModal = document.getElementById('modal-body');
+
+    cardModal.innerHTML = `
+
+
+    <div class="container text-center p-4">
+  <div class="row align-items-start gap-2">
+    <div class="col">
+    <div>
+    <h5 class="card-title">${data.data.description} <span class="badge text-bg-warning">
+    </span></h5>
+    <div class="d-flex justify-content-between">
+      <p class="text-success">${data.data.pricing[0].price}<br> ${data.data.pricing[0].plan}</p>
+      <div>${data.data.pricing[1].price}<br> ${data.data.pricing[1].plan}</div>
+      <div>${data.data.pricing[2].price}<br> ${data.data.pricing[2].plan}</div>
+    </div>
+
+    
+  </div>
+    </div>
+    <div class="col">
+    <div class="card mb-3">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+  
+  
+      
+    </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    `
 
 
 }
