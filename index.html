@@ -39,9 +39,9 @@
     </section>
 
     <!-- Spinner Section -->
-    <section>
+    <section id="loader" class="d-none">
       <div class="d-flex justify-content-center">
-        <div class="spinner-border d-none" role="status">
+        <div class="spinner-border " role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
       </div>
@@ -64,7 +64,7 @@
                     <!-- <h5 class="modal-title">Extra Large Modal</h5> -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div id="modal-body" class="modal-body">
+                <div id="modal-body" class="modal-body ">
                     
                 </div>
             </div>
@@ -81,8 +81,8 @@
     </section>
 
     <section>
-      <div id="show-more" class="d-none container text-center">
-        <button id="see-more" type="button" class=" btn btn-danger btn-lg mt-2">See More</button>
+      <div id="show-more" class=" container text-center">
+        <button onclick="showAllData()" type="button" class=" btn btn-danger btn-lg mt-2">Show All</button>
       </div>
     </section>
   </main>

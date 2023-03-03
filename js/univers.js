@@ -2,7 +2,7 @@ const loadData = () => {
   const URL = `https://openapi.programming-hero.com/api/ai/tools`
   fetch(URL)
     .then(res => res.json())
-    .then(data => displayAllData(data.data))
+    .then(data => displayAllData(data.data.tools.slice(0,6)))
 
 
 }
@@ -11,26 +11,25 @@ const displayAllData = (datas) => {
   // console.log(data.tools);
 
   const mainCard = document.getElementById('main-card');
-  // mainCard.innerHTML=''
+  mainCard.innerHTML = '';
 
 
   // See More Button
 
-  const showMoreBtn = document.getElementById('show-more')
-   dataLength = datas.tools
+  // dataLength = datas.tools
+  // console.log(dataLength);
 
-  if (dataLength.length > 6) {
-    dataLength = dataLength.slice(0, 6)
-    showMoreBtn.classList.remove('d-none')  
-  }
-  else {
-    showMoreBtn.classList.add('d-none')
-    
-  }
+  // if (dataLength.length > 6) {
+  //   dataLength = dataLength.slice(0, 13)
+  //   showMoreBtn.classList.remove('d-none')
+  // }
+  // else {
+  //   showMoreBtn.classList.add('d-none')
+  // }
   
 
 
-  dataLength.forEach(singleData => {
+  datas.forEach(singleData => {
     // console.log(singleData);
     const cardDiv = document.createElement('div')
     cardDiv.classList.add('card')
@@ -97,8 +96,9 @@ const cardModal = (id) => {
 }
 
 const displayCardModal = (data) => {
+  console.log(data.data);
 
-  console.log(data.data.accuracy.score);
+  // console.log(data.data.accuracy.score);
   const cardModal = document.getElementById('modal-body');
   const person = data.data.features
   const propertyValues = Object.values(person);
@@ -106,7 +106,7 @@ const displayCardModal = (data) => {
   cardModal.innerHTML = `
 
 
-    <div class="container text-center p-4">
+    <div class="container  text-center p-4">
   <div class="row align-items-start gap-2">
     <div  class="col">
     <div id="left-side">
@@ -116,11 +116,13 @@ const displayCardModal = (data) => {
       <p id="pricing-box" class="text-success border border fw-bold rounded">
       ${data.data.pricing[0].price ?data.data.pricing[0].price : 'No Plans Available'}
       <br>
-      ${data.data.pricing[0].plan ?data.data.pricing[0].plan : 'No Plans Available'}</p>
+      ${data.data.pricing[0].plan ? data.data.pricing[0].plan : 'No Plans Available'}
+      </p>
       <p id="pricing-box" class="text-warning-emphasis border border fw-bold rounded">
       ${data.data.pricing[1].price ?data.data.pricing[1].price : 'No Plans Available'}
       <br> 
-      ${data.data.pricing[1].plan ?data.data.pricing[1].plan : 'No Plans Available'}</p>
+      ${data.data.pricing[1].plan ? data.data.pricing[1].plan : 'No Plans Available'}
+      </p>
       <p id="pricing-box" class="text-danger border border fw-bold rounded">
       ${data.data.pricing[2].price ?data.data.pricing[2].price : 'No Plans Available'}
       <br> 
@@ -163,11 +165,14 @@ const displayCardModal = (data) => {
     <div id="right-side" class=" card p-4 ">
     <div class="relative">
     <img src="${data.data.image_link[0]}" class="card-img-top" alt="...">
-    <h1 class="absulate fs-6 rounded bg-danger">${data.data.accuracy.score}% accuracy</h1>
+    <h1 class="absulate fs-6 rounded bg-danger">
+    ${data.data.accuracy.score ? data.data.accuracy.score*100 : ''}% accuracy</h1>
     </div>
     <div class="card-body">
       <h5 class="card-title mt-4 fw-bold">${data.data.input_output_examples[0].input}</h5>
-      <p class="card-text mt-4">${data.data.input_output_examples[0].output}</p>
+      <p class="card-text mt-4">
+      ${data.data.input_output_examples[0].output
+      ? data.data.input_output_examples[0].output.slice(0,160) : 'No! Not Yet! Take a break!!!'}...</p>
       
     </div>
   </div>
@@ -186,13 +191,19 @@ const displayCardModal = (data) => {
 }
 
 
+
+
 // See More Button
-document.getElementById('see-more').addEventListener('click', function () {
+const showAllData = () => {
   const URL = `https://openapi.programming-hero.com/api/ai/tools`
   fetch(URL)
     .then(res => res.json())
-    .then(data => loadData(data.data.tools))
+    .then(data => displayAllData(data.data.tools))
 
-})
+  const showMoreBtn = document.getElementById('show-more')
+  showMoreBtn.innerHTML=''
+
+
+}
 
 loadData()
