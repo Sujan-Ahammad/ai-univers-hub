@@ -22,3 +22,17 @@ height: 511px;
     height: 90px;
     padding: 10px;
 }
+
+
+
+.absulate{
+    position: relative;
+}
+.absulate{
+position: absolute;
+    bottom: 440px;
+    right: 30px;
+    width: 120px;
+height: 30px;
+
+}
