@@ -74,10 +74,16 @@ const displayCardModal = (data) => {
   const person = data.data.features
   const propertyValues = Object.values(person);
 
+
+  // kajflkj ajfjadj lalkjfasdf lkakjsdfkjsaf l;aksdjfsadj f 
+  // lkdffj lkaj
+
+
+
   // Card Modal Inner HTML
   cardModal.innerHTML = `
-    <div class="container  text-center p-4">
-  <div class="row align-items-start gap-2">
+    <div class="container   text-center p-4">
+  <div class="row  align-items-start gap-2">
     <div  class="col">
     <div id="left-side">
     <h5 class="card-title fw-bold">${data.data.description} <span class="badge text-bg-warning">
@@ -108,7 +114,6 @@ const displayCardModal = (data) => {
   <li>${propertyValues[2].feature_name ? propertyValues[2].feature_name : 'Not Available'} </li>
   </div>
   
-  
   <div>
   <h1 class="fw-bold fs-4">integrations</h1>
   <ul>
@@ -118,8 +123,6 @@ const displayCardModal = (data) => {
 </ul>
   </div>
 </div>
-
-
 
     
   </div>
@@ -139,42 +142,31 @@ const displayCardModal = (data) => {
       
     </div>
   </div>
-  
-  
-      
     </div>
       </div>
     </div>
   </div>
 </div>
 
-    `
-
-
-}
-
-
-
+    `;
+};
 
 // See More Button
 const showAllData = () => {
   // Start Loading When Click On the Show more Button
   loadingSpinner(true);
 
-
   const URL = `https://openapi.programming-hero.com/api/ai/tools`
   fetch(URL)
     .then(res => res.json())
     .then(data => displayAllData(data.data.tools))
 
+  // Hide Show More Button Inner HTML
   const showMoreBtn = document.getElementById('show-more')
   showMoreBtn.innerHTML = ''
-
-
 }
 
 const loadingSpinner = (isLoading) => {
-
   const loaderSection = document.getElementById('loader')
   if (isLoading) {
     loaderSection.classList.remove('d-none')
@@ -182,11 +174,6 @@ const loadingSpinner = (isLoading) => {
   else {
     loaderSection.classList.add('d-none')
   }
-
-
 }
-
-
-
 
 loadData()
